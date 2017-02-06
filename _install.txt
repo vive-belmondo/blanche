@@ -1,0 +1,88 @@
+
+sudo apt-get install nodejs
+sudo npm install
+sudo npm install -g bower
+sudo npm install -g gulp
+sudo apt-get install git
+/////////////////////////////////////////////////////////////////////
+
+// Install mongodb
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" |
+sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
+
+---Create new file :
+sudo nano /lib/systemd/system/mongod.service
+---and paste :
+
+[Unit]
+Description=High-performance, schema-free document-oriented database
+After=network.target
+Documentation=https://docs.mongodb.org/manual
+
+[Service]
+User=mongodb
+Group=mongodb
+ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
+
+[Install]
+WantedBy=multi-user.target
+
+--------------------------------
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo killall -15 mongod
+sudo mkdir -p /data/db/
+sudo chown -R afpa:afpa /data/db
+------------------------------------------------------
+////////////////////////////////////////////////////////////////////
+//install mongochef (pour voir fichiers de la db)
+// d'abord, télécharger le fichier
+tar -xvzf mongochef-linux-x64-dist.tar.gz
+./mongochef-4.5.2-linux-x64-dist/bin/mongochef.sh
+
+
+// install meanJS
+
+sudo git clone https://github.com/meanjs/mean.git meanjs
+sudo chmod 777 meanjs
+
+///////////////////////////////////////////////////////////////////////
+
+dans sublimetext, ajouter dans le fichier ".bowerrc" qui est dans le dossier meansjs :
+
+"proxy":"http://<host>:<port>",
+"https-proxy":"http://<host>:<port>"
+
+et remplacer host et port par l'adresse du proxy (ex:10.127.254.1:80)
+////////////////////////////////////
+
+
+// Project dependencies
+cd meanjs
+sudo npm install
+sudo npm install nodejs-legacy
+sudo npm rebuild node-sass
+sudo bower install --allow-root (c'est pour installer jquery et angular)
+
+///////////////////////////////////////////////
+
+
+lancer MONGO DB = mongod
+lancer MEAN JS = npm start
+
+
+INSTALLER puis AJOUTER LE LIEN SUR CONFIG/ASSETS/DEFAULT.JS 
+sudo bower install angular-material-data-table --allow-root --save
+
+sudo bower install material-design-icons --allow-root
+(-> pour icons, chercher le .CSS dans le dossier iconfont)
+(https://material.io/icons/)
+
+sudo bower install angular-thumbnail --allow-root
+
+sudo npm install html-pdf --save
+
+
